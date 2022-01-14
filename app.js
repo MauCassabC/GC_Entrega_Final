@@ -33,7 +33,7 @@ var InitPro = function(){
     /** @type {WebGLRenderingContext} */
     var gl = canvas.getContext('webgl');
 
-    gl.clearColor(0.75, 0.85, 0.8, 1.0);
+    gl.clearColor(0.4, 0.85, 0.8, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     var vertexShader = gl.createShader(gl.VERTEX_SHADER);
@@ -77,8 +77,8 @@ var InitPro = function(){
     var triangleVertices = 
 	[ // X, Y,       R, G, B
 		0.0, 0.5,    1.0, 1.0, 0.0,
-		-0.5, -0.5,  0.7, 0.0, 1.0,
-		0.5, -0.5,   0.1, 1.0, 0.6
+		-0.5, -0.5,  1.0, 0.0, 1.0,
+		0.5, -0.5,   0.1, 1.0, 0.9
 	];
 
 	var triangleVertexBufferObject = gl.createBuffer();
