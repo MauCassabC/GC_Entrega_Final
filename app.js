@@ -1,117 +1,42 @@
-var vertexShaderText = 
-[
-'precision mediump float;',
-'',
-'attribute vec2 vertPosition;',
-'attribute vec3 vertColor;',
-'varying vec3 fragColor;',
-'',
-'void main()',
-'{',
-'  fragColor = vertColor;',
-'  gl_Position = vec4(vertPosition, 0.0, 1.0);',
-'}'
-].join('\n');
-
-var fragmentShaderText =
-[
-'precision mediump float;',
-'',
-'varying vec3 fragColor;',
-'void main()',
-'{',
-'  gl_FragColor = vec4(fragColor, 1.0);',
-'}'
-].join('\n');
+// Ojo segruyo se tiene que importar css
 
 
-var InitPro = function(){ 
-    //console.log("this is working");
 
-    /** @type {HTMLCanvasElement} */
-    var canvas = document.getElementById("pro-surface");
-    /** @type {WebGLRenderingContext} */
-    var gl = canvas.getContext('webgl');
+//Importar Three.js 
+//import * as THREE from "three";
+import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
+import { GLTFLoader } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/GLTFLoader.js';
+import { PMREMGenerator } from 'https://cdn.skypack.dev/three@0.136.0/src/extras/PMREMGenerator.js';
+import { RGBELoader } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/loaders/RGBELoader.js';
+import { OrbitControls } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
 
-    gl.clearColor(0.4, 0.85, 0.8, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+var scene = new THREE.Scene();
+scene.background = new THREE.Color(0x2a3b4a);
 
-    var vertexShader = gl.createShader(gl.VERTEX_SHADER);
-    var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+var camara = new THREE.PerspectiveCamera(75, window.innerWidth/innerHeight);
 
-    gl.shaderSource(vertexShader, vertexShaderText);
-    gl.shaderSource(fragmentShader, fragmentShaderText);
+var render = new THREE.WebGLRenderer;
+render.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(render.domElement);
 
-    gl.compileShader(vertexShader);
-    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-		console.error('ERROR compiling vertex shader!', gl.getShaderInfoLog(vertexShader));
-		return;
-	}
+var geometry = new THREE.BoxGeometry();
+var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
 
+var cube = new THREE.Mesh(geometry, material)
 
-    gl.compileShader(fragmentShader);
-    if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-		console.error('ERROR compiling fragment shader!', gl.getShaderInfoLog(fragmentShader));
-		return;
-	}
+scene.add(cube);
 
-    var program = gl.createProgram();
-	gl.attachShader(program, vertexShader);
-	gl.attachShader(program, fragmentShader);
-	gl.linkProgram(program);
-	if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-		console.error('ERROR linking program!', gl.getProgramInfoLog(program));
-		return;
-	}
-	gl.validateProgram(program);
-	if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
-		console.error('ERROR validating program!', gl.getProgramInfoLog(program));
-		return;
-	}
+camara.position.z = 5;
 
+var animate = function(){
+    requestAnimationFrame(animate)
 
-    //
-    //
-    //
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
 
-    var triangleVertices = 
-	[ // X, Y,       R, G, B
-		0.0, 0.5,    1.0, 1.0, 0.0,
-		-0.5, -0.5,  1.0, 0.0, 1.0,
-		0.5, -0.5,   0.1, 1.0, 0.9
-	];
+    render.render(scene, camara);
+}
 
-	var triangleVertexBufferObject = gl.createBuffer();
-	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
+animate();
 
-	var positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
-	var colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
-	gl.vertexAttribPointer(
-		positionAttribLocation, // Attribute location
-		2, // Number of elements per attribute
-		gl.FLOAT, // Type of elements
-		gl.FALSE,
-		5 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
-		0 // Offset from the beginning of a single vertex to this attribute
-	);
-	gl.vertexAttribPointer(
-		colorAttribLocation, // Attribute location
-		3, // Number of elements per attribute
-		gl.FLOAT, // Type of elements
-		gl.FALSE,
-		5 * Float32Array.BYTES_PER_ELEMENT, // Size of an individual vertex
-		2 * Float32Array.BYTES_PER_ELEMENT // Offset from the beginning of a single vertex to this attribute
-	);
-
-	gl.enableVertexAttribArray(positionAttribLocation);
-	gl.enableVertexAttribArray(colorAttribLocation);
-
-	//
-	// 
-	//
-	gl.useProgram(program);
-	gl.drawArrays(gl.TRIANGLES, 0, 3);
-};
-    
 
