@@ -11,32 +11,35 @@ import { RGBELoader } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/l
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
 
 var scene = new THREE.Scene();
-scene.background = new THREE.Color(0x2a3b4a);
-
-var camara = new THREE.PerspectiveCamera(75, window.innerWidth/innerHeight);
+var camara = new THREE.PerspectiveCamera(55, window.innerWidth/innerHeight);
 
 var render = new THREE.WebGLRenderer;
 render.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(render.domElement);
 
-var geometry = new THREE.BoxGeometry();
-var material = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true});
 
-var cube = new THREE.Mesh(geometry, material)
 
-scene.add(cube);
+// Crear el cielo en la imagen 
+var skyGeo = new THREE.SphereGeometry(100000, 25, 25);
+var loader = new THREE.TextureLoader();
+    texture =  loader.load("./Images/Sky_Clouds.jpg");
+var material = new THREE.MeshPhongMaterial({map: texture});
 
-camara.position.z = 5;
+
+var sky = new THREE.Mesh(skyGeo, material);
+sky.material.side = THREE.BackSide;
+scene.add(sky);
 
 var animate = function(){
-    requestAnimationFrame(animate)
+    requestAnimationFrame(animate);
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    render.render(scene,camara);
 
-    render.render(scene, camara);
 }
 
 animate();
+
+
+
 
 
