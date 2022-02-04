@@ -55,6 +55,11 @@ Creador: Mauricio Cassab
 
 Se va a hacer una escena de las pirámides o otras estructuras del Antiguo Egipto. Se va a intentar que estas sean una representación del proceso de construcción de estos. Si no se logra únicamente se van a hacer las pirámides con sus texturas. Las sombras se van a generar de la fuente de luz simulando el sol. Para los objetos se va a intentar hacer que los bloques se muevan hacia arriba de la pirámide. De no ser posible se van a mover en la escena para simular el proceso de construcción.
 
+La imagen a continuacion es una del proyeto final terminado 
+
+![image](https://user-images.githubusercontent.com/72634878/152489459-23ae330d-90f8-490a-ba49-ddded309df3a.png)
+
+
 La imagen a continuación es una escena de referencia que es similar a lo que se quiere hacer. (Se espera que la escena del proyecto sea más simple y con menos detalle).
 
 ![image](https://user-images.githubusercontent.com/72634878/149440973-1d8a1b00-850c-4356-9767-200046d48dc1.png)
