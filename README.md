@@ -43,7 +43,13 @@ Creador: Mauricio Cassab
 
  - Archivos de Textura
 
- - presentación del Proyecto, describir la escena y Referencias (Read Me)
+ - Presentación del Proyecto, describir la escena y Referencias (Read Me)
+
+## Referecnias
+
+- El Unico Objeto que se importo al proyecto fue la nave que fue importada de Unity Asset Store link (https://assetstore.unity.com/packages/3d/vehicles/space/uav-trident-46128)
+- Todos los demas objetos fueron creados usando Pro Builder en UNITY.
+- Las texturas fueron obtenidas de dominio publico, niguna fue creada por mi.
 
 ## Descripciones de la Escena
 
